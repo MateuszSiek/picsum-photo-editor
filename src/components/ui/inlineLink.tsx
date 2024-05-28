@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import React from "react";
+import { cn } from '@/lib/utils';
+import React from 'react';
 
 export interface LinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
@@ -9,12 +9,12 @@ const InlineLink = React.forwardRef<HTMLInputElement, LinkProps>(
     return (
       <a
         type={type}
-        className={cn("font-medium underline underline-offset-4", className)}
+        className={cn('font-medium underline underline-offset-4', className)}
         {...props}
       />
     );
   }
 );
-InlineLink.displayName = "InlineLink";
+InlineLink.displayName = 'InlineLink';
 
 export { InlineLink };

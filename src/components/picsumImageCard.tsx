@@ -1,7 +1,7 @@
-import { PicsumImage } from "@/lib/types";
-import { Card } from "./ui/card";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { PicsumImage } from '@/lib/types';
+import { Card } from './ui/card';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 function getScaledImageSize(
   image: PicsumImage,
@@ -30,17 +30,17 @@ export function PicsumImageCard({ image }: { image: PicsumImage }) {
   const { width, height } = getScaledImageSize(image);
   const url = `https://picsum.photos/id/${image.id}/${width}/${height}`;
   return (
-    <Card className="relative group overflow-hidden">
+    <Card className='group relative overflow-hidden'>
       <img
         src={url}
         alt={author}
         className={cn(
-          "w-full h-48 object-cover rounded-md transition-opacity duration-700",
-          hasLoaded ? "opacity-100" : "opacity-0"
+          'h-48 w-full rounded-md object-cover transition-opacity duration-700',
+          hasLoaded ? 'opacity-100' : 'opacity-0'
         )}
         onLoad={() => setHasLoaded(true)}
       />
-      <div className="p-1 text-white text-center absolute bottom-0 w-full bg-gradient-to-t from-black/80 via-black/10 via-70% to-black/10 to-transparent to-90% text-sm opacity-0 duration-500 ease-in group-hover:opacity-100">
+      <div className='absolute bottom-0 w-full bg-gradient-to-t from-black/80 via-black/10 via-70% to-black/10 to-transparent to-90% p-1 text-center text-sm text-white opacity-0 duration-500 ease-in group-hover:opacity-100'>
         <p>{author}</p>
       </div>
     </Card>
