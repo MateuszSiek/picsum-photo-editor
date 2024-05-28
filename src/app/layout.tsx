@@ -24,7 +24,7 @@ const Header = () => {
 const Footer = () => {
   return (
     <footer className="py-2 px-8">
-      <div className="flex items-center h-16 text-sm text-muted-foreground">
+      <div className="flex items-center h-16 text-sm text-muted-foreground container max-w-screen-2xl">
         <p>
           Build by{" "}
           <InlineLink href="https://x.com/mateuszsiek91">
@@ -47,7 +47,9 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className={cn(inter.className, "h-full flex flex-col")}>
         <Header />
-        <div className="flex-1 py-2 px-8">{children}</div>
+        <div className="flex-1 py-2 px-8 container max-w-screen-2xl">
+          {children}
+        </div>
         <Footer />
       </body>
     </html>
