@@ -1,7 +1,12 @@
 import { PicsumImage } from './types';
 
-export function loadPicsumImages() {
-  return fetch('https://picsum.photos/v2/list')
+interface Pagination {
+  page?: number;
+  limit?: number;
+}
+
+export function loadPicsumImages({ page = 1, limit = 30 }: Pagination = {}) {
+  return fetch(`https://picsum.photos/v2/list?page=${page}&limit=${limit}`)
     .then((res) => res.json())
     .then((data) => data as PicsumImage[]);
 }

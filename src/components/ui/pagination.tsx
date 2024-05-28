@@ -34,16 +34,24 @@ PaginationContent.displayName = 'PaginationContent';
 
 const PaginationItem = React.forwardRef<
   HTMLLIElement,
-  React.ComponentProps<'li'>
->(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn('', className)} {...props} />
+  React.ComponentProps<'li'> & { disabled?: boolean }
+>(({ className, disabled, ...props }, ref) => (
+  <li
+    ref={ref}
+    className={cn(
+      '',
+      disabled ? 'pointer-events-none opacity-50' : '',
+      className
+    )}
+    {...props}
+  />
 ));
 PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {
   isActive?: boolean;
 } & Pick<ButtonProps, 'size'> &
-  React.ComponentProps<'a'>;
+  React.ComponentProps<typeof Link>;
 
 const PaginationLink = ({
   className,
@@ -51,7 +59,7 @@ const PaginationLink = ({
   size = 'icon',
   ...props
 }: PaginationLinkProps) => (
-  <a
+  <Link
     aria-current={isActive ? 'page' : undefined}
     className={cn(
       buttonVariants({
@@ -112,6 +120,61 @@ const PaginationEllipsis = ({
 );
 PaginationEllipsis.displayName = 'PaginationEllipsis';
 
+export enum PaginationItemType {
+  Page = 'page',
+  Ellipsis = 'ellipsis',
+}
+
+export interface PaginationItemData {
+  type: PaginationItemType;
+  value?: number;
+}
+
+type DynamicPaginationProps = {
+  page: number;
+  pagesCount: number;
+  paginationItems: PaginationItemData[];
+  className?: string;
+};
+
+const DynamicPagination = ({
+  page,
+  paginationItems,
+  className,
+  pagesCount,
+}: DynamicPaginationProps) => {
+  return (
+    <Pagination className={className}>
+      <PaginationContent>
+        <PaginationItem disabled={page === 1}>
+          <PaginationPrevious href={`?page=${page - 1}`} />
+        </PaginationItem>
+        {paginationItems.map((item, index) => {
+          switch (item.type) {
+            case PaginationItemType.Page:
+              return (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    isActive={page === item.value}
+                    href={`?page=${item.value}`}
+                  >
+                    {item.value}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            case PaginationItemType.Ellipsis:
+              return <PaginationEllipsis key={index} />;
+          }
+        })}
+        <PaginationItem disabled={page + 1 > pagesCount}>
+          <PaginationNext href={`?page=${page + 1}`} />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+};
+DynamicPagination.displayName = 'DynamicPagination';
+
 export {
   Pagination,
   PaginationContent,
@@ -120,4 +183,5 @@ export {
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,
+  DynamicPagination,
 };
