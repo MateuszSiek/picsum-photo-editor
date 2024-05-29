@@ -47,7 +47,7 @@ export default function RootLayout({
     <html lang='en' className='h-full'>
       <body className={cn(inter.className, 'flex h-full flex-col')}>
         <Header />
-        <div className='container max-w-screen-2xl flex-1 px-8 py-4'>
+        <div className='container flex max-w-screen-2xl flex-1 flex-col px-8 py-4'>
           {children}
         </div>
         <Footer />

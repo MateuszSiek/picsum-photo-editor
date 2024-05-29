@@ -10,3 +10,10 @@ export function loadPicsumImages({ page = 1, limit = 30 }: Pagination = {}) {
     .then((res) => res.json())
     .then((data) => data as PicsumImage[]);
 }
+
+// TODO: Caching
+export function loadPicsumImage(id: string) {
+  return fetch(`https://picsum.photos/id/${id}/info`)
+    .then((res) => res.json())
+    .then((data) => data as PicsumImage);
+}

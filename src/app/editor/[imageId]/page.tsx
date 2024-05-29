@@ -1,13 +1,11 @@
-import { Card } from '@/components/ui/card';
 import { DesignPanel } from './designPanel';
+import ImagePreview from './imagePreview';
 
 export default function Editor({ params }: { params: { imageId: string } }) {
   return (
-    <div className='container h-full p-0'>
-      <div className='grid h-full items-stretch gap-6 md:grid-cols-[1fr_200px]'>
-        <Card>Preview</Card>
-        <DesignPanel />
-      </div>
+    <div className='grid h-full flex-1 items-stretch gap-6 md:grid-cols-[1fr_250px]'>
+      <ImagePreview imageId={params.imageId} />
+      <DesignPanel imageId={params.imageId} />
     </div>
   );
 }

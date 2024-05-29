@@ -6,8 +6,11 @@ import {
   LabeledSwitch,
 } from '@/components/labeledInput';
 import { Button } from '@/components/ui/button';
+import { loadPicsumImage } from '@/lib/picsumApi';
+import { PicsumImage } from '@/lib/types';
 import { DownloadIcon } from '@radix-ui/react-icons';
 import { parseAsBoolean, parseAsInteger, useQueryState } from 'nuqs';
+import { useEffect, useState } from 'react';
 
 function ImageSize() {
   const [width, setWidth] = useQueryState(
@@ -68,7 +71,24 @@ function ImageGrayscale() {
   );
 }
 
-export function DesignPanel() {
+export function DesignPanel({ imageId }: { imageId: string }) {
+  const [width, setWidth] = useQueryState('width', parseAsInteger);
+  const [height, setHeight] = useQueryState('height', parseAsInteger);
+  const [image, setImage] = useState<PicsumImage>();
+
+  useEffect(() => {
+    if (!imageId) return;
+    loadPicsumImage(imageId).then((image) => {
+      setImage(image);
+    });
+  }, [imageId]);
+
+  useEffect(() => {
+    if (!image) return;
+    if (!width) setWidth(image.width);
+    if (!height) setHeight(image.height);
+  }, [image]);
+
   return (
     <div className='flex flex-col'>
       <ImageSize />
