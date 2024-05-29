@@ -6,3 +6,10 @@ export interface PicsumImage {
   url: string;
   download_url: string;
 }
+
+export interface ImageEditProps {
+  width: number;
+  height: number;
+  blur: number;
+  grayscale: boolean;
+}
