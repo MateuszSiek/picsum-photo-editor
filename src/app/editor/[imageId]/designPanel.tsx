@@ -1,5 +1,3 @@
-'use client';
-
 import {
   LabeledInput,
   LabeledSlider,
@@ -10,7 +8,8 @@ import { loadPicsumImage } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
 import { DownloadIcon } from '@radix-ui/react-icons';
 import { parseAsBoolean, parseAsInteger, useQueryState } from 'nuqs';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { CanvasContext } from './context';
 
 function ImageSize() {
   const [width, setWidth] = useQueryState(
@@ -71,6 +70,26 @@ function ImageGrayscale() {
   );
 }
 
+function DonwloadButton() {
+  const { canvasRef } = useContext(CanvasContext);
+  // const { canvasRef, userBlob, foregroundBlob } = useContext(AppContext);
+
+  const downloadImage = () => {
+    if (canvasRef) {
+      const link = document.createElement('a');
+      link.download = 'image.png';
+      link.href = canvasRef.current?.toDataURL('image/png')!;
+      link.click();
+      link.remove();
+    }
+  };
+  return (
+    <Button onClick={downloadImage} className='w-full'>
+      <DownloadIcon className='mr-2 h-5 w-5' /> Download
+    </Button>
+  );
+}
+
 export function DesignPanel({ imageId }: { imageId: string }) {
   const [width, setWidth] = useQueryState('width', parseAsInteger);
   const [height, setHeight] = useQueryState('height', parseAsInteger);
@@ -99,9 +118,7 @@ export function DesignPanel({ imageId }: { imageId: string }) {
         <ImageGrayscale />
       </div>
       <div className='pt-6'>
-        <Button className='w-full'>
-          <DownloadIcon className='mr-2 h-5 w-5' /> Download
-        </Button>
+        <DonwloadButton />
       </div>
     </div>
   );

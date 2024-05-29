@@ -1,9 +1,9 @@
-'use client';
 import { useViewScale } from '@/lib/hooks';
 import { loadPicsumImage } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
 import { parseAsBoolean, parseAsInteger, useQueryState } from 'nuqs';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { CanvasContext } from './context';
 
 function calculateDrawParameters(
   canvasWidth: number,
@@ -39,7 +39,7 @@ function ImageCanvas({
   height: number;
   style: React.CSSProperties;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { canvasRef } = useContext(CanvasContext);
   const [canvasImage, setCanvasImage] = useState<HTMLImageElement | null>(null);
   const [grayscale] = useQueryState('grayscale', parseAsBoolean);
   const [blur] = useQueryState('blur', parseAsInteger);
@@ -49,12 +49,13 @@ function ImageCanvas({
       const img = new Image();
       img.src = image.download_url;
       img.onload = () => setCanvasImage(img);
+      img.setAttribute('crossOrigin', 'anonymous');
     }
   }, [image]);
 
   useEffect(() => {
     // Draw the image with filters on the canvas
-    const ctx = canvasRef.current?.getContext('2d');
+    const ctx = canvasRef?.current?.getContext('2d');
     if (canvasImage && image && ctx) {
       ctx.clearRect(0, 0, width, height);
 
