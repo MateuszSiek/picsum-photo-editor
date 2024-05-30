@@ -109,7 +109,7 @@ Before you begin, ensure you have the following installed:
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/yourusername/picsum-photo-editor.git
+   git clone https://github.com/MateuszSiek/picsum-photo-editor.git
    cd picsum-photo-editor
    ```
 
@@ -119,13 +119,13 @@ Before you begin, ensure you have the following installed:
    npm install
    ```
 
-   3. **Run the development server:**
+3. **Run the development server:**
 
-   ```sh
-   npm run dev
-   ```
+```sh
+npm run dev
+```
 
-   4. **Open the application:**
+4. **Open the application:**
 
 Open your web browser and navigate to http://localhost:3000.
 
@@ -140,7 +140,7 @@ npm run build
 After building, you can start the production server using:
 
 ```sh
-npm start
+npm run start
 ```
 
 ### Testing
@@ -148,7 +148,7 @@ npm start
 To run the test suite, use the following command:
 
 ```sh
-npm test
+npm run test
 ```
 
 To run tests in watch mode, use:
@@ -162,7 +162,7 @@ npm run test:watch
 ```
 picsum-photo-editor/
 │
-├── __tests__/
+├── __tests__/                   # jest tests
 │
 ├── src/
 │   ├── app
@@ -171,6 +171,7 @@ picsum-photo-editor/
 │   │   │   ├── context.tsx      # canvas context
 │   │   │   ├── designPanel.tsx  # edit panel component
 │   │   │   └── imagePreview.tsx # canvas image preview component
+│   │   ├── layout.tsx           # main app layout wrapper
 │   │   └── page.tsx             # home page with images
 │   │
 │   ├── components
@@ -184,9 +185,9 @@ picsum-photo-editor/
 │       ├── types.tsx            # types
 │       └── utils.tsx            # additional utility functions used by the app
 |
-├── public/              # Public assets like images and fonts
+├── public/                      # Public assets
 |
-└── README.md            # Project documentation
+└── README.md                    # Project documentation
 ```
 
 ## Status
