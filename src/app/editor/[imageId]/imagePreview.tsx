@@ -10,7 +10,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { CanvasContext } from './context';
 import { LoadingSpinner } from '@/components/ui/spinner';
 
-function calculateDrawParameters(
+export function calculateDrawParameters(
   canvasWidth: number,
   canvasHeight: number,
   imageWidth: number,
