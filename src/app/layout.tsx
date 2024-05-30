@@ -16,14 +16,18 @@ export const metadata: Metadata = {
 const Header = () => {
   return (
     <header className='w-full border-b border-border/40 bg-background/95'>
-      <div className='container flex h-12 max-w-screen-2xl items-center'>
+      <div className='container flex h-12 max-w-screen-2xl items-center justify-between gap-4'>
         <Link
           className='inline-flex items-center justify-center gap-2'
           href={`/`}
         >
           <Pencil2Icon width={20} height={20} className='relative top-[-1px]' />
-          <div className=''>PicsumEditor</div>
+          <div>PicsumEditor</div>
         </Link>
+        <p className='hidden text-sm text-muted-foreground sm:inline'>
+          Easilly edit images from{' '}
+          <InlineLink href='https://picsum.photos/'>picsum.photos</InlineLink>
+        </p>
       </div>
     </header>
   );
@@ -31,14 +35,11 @@ const Header = () => {
 
 const Footer = () => {
   return (
-    <footer className='px-8 py-2'>
+    <footer>
       <div className='container flex h-16 max-w-screen-2xl items-center text-sm text-muted-foreground'>
         <p>
           Build by{' '}
-          <InlineLink href='https://x.com/mateuszsiek91'>
-            @mateuszsiek
-          </InlineLink>{' '}
-          using{' '}
+          <InlineLink href='https://msiek.com'>Mateusz Siek</InlineLink> using{' '}
           <InlineLink href='https://picsum.photos/'>picsum.photos</InlineLink>
         </p>
       </div>
