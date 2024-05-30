@@ -5,6 +5,7 @@ import { DynamicPagination } from '@/components/ui/pagination';
 import { loadPicsumImages } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
 import { getPagination } from '@/lib/utils';
+import Link from 'next/link';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -32,7 +33,9 @@ export default function Home() {
 
       <div className='grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
         {images.map((image) => (
-          <PicsumImageCard key={image.id} image={image} />
+          <Link key={image.id} href={`/editor/${image.id}`}>
+            <PicsumImageCard image={image} />
+          </Link>
         ))}
       </div>
 
