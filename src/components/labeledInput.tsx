@@ -7,12 +7,17 @@ import { Label } from './ui/label';
 import * as SwitchPrimitives from '@radix-ui/react-switch';
 import { Switch } from './ui/switch';
 import { Input, InputProps } from './ui/input';
+import { cn } from '@/lib/utils';
 
 type LabeledInputProps = InputProps & { label: string };
 
-export function LabeledInput({ label, ...props }: LabeledInputProps) {
+export function LabeledInput({
+  label,
+  className,
+  ...props
+}: LabeledInputProps) {
   return (
-    <div className='grid gap-2'>
+    <div className={cn('grid gap-2', className)}>
       <Label>{label}</Label>
 
       <Input {...props} />

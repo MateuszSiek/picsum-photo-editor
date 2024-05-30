@@ -4,6 +4,7 @@ import { PicsumImage } from '@/lib/types';
 import { parseAsBoolean, parseAsInteger, useQueryState } from 'nuqs';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { CanvasContext } from './context';
+import { LoadingSpinner } from '@/components/ui/spinner';
 
 function calculateDrawParameters(
   canvasWidth: number,
@@ -39,7 +40,7 @@ function ImageCanvas({
   height: number;
   style: React.CSSProperties;
 }) {
-  const { canvasRef } = useContext(CanvasContext);
+  const { canvasRef, setCanvasReady } = useContext(CanvasContext);
   const [canvasImage, setCanvasImage] = useState<HTMLImageElement | null>(null);
   const [grayscale] = useQueryState('grayscale', parseAsBoolean);
   const [blur] = useQueryState('blur', parseAsInteger);
@@ -80,17 +81,23 @@ function ImageCanvas({
       const { drawWidth, drawHeight, offsetX, offsetY } =
         calculateDrawParameters(width, height, image.width, image.height);
       ctx.drawImage(canvasImage, offsetX, offsetY, drawWidth, drawHeight);
+      setCanvasReady(true);
     }
   }, [canvasImage, image, width, height, blur, grayscale]);
 
   return (
-    <canvas
-      className='absolute left-0 right-0 m-auto rounded-md'
-      style={style}
-      ref={canvasRef}
-      width={width}
-      height={height}
-    />
+    <>
+      {!canvasImage && (
+        <LoadingSpinner className='absolute left-0 right-0 top-20 m-auto' />
+      )}
+      <canvas
+        className='absolute left-0 right-0 m-auto rounded-md'
+        style={style}
+        ref={canvasRef}
+        width={width}
+        height={height}
+      />
+    </>
   );
 }
 

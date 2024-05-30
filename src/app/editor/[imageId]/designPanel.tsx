@@ -24,6 +24,7 @@ function ImageSize() {
   return (
     <div className='flex gap-2'>
       <LabeledInput
+        className='flex-1'
         onChange={(e) => setWidth(Number(e.target.value))}
         type='number'
         min={0}
@@ -31,6 +32,7 @@ function ImageSize() {
         label={'Width'}
       />
       <LabeledInput
+        className='flex-1'
         onChange={(e) => setHeight(Number(e.target.value))}
         type='number'
         min={0}
@@ -71,8 +73,7 @@ function ImageGrayscale() {
 }
 
 function DonwloadButton() {
-  const { canvasRef } = useContext(CanvasContext);
-  // const { canvasRef, userBlob, foregroundBlob } = useContext(AppContext);
+  const { canvasRef, canvasReady } = useContext(CanvasContext);
 
   const downloadImage = () => {
     if (canvasRef) {
@@ -83,8 +84,9 @@ function DonwloadButton() {
       link.remove();
     }
   };
+
   return (
-    <Button onClick={downloadImage} className='w-full'>
+    <Button disabled={!canvasReady} onClick={downloadImage} className='w-full'>
       <DownloadIcon className='mr-2 h-5 w-5' /> Download
     </Button>
   );
