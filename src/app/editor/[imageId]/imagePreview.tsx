@@ -105,16 +105,11 @@ function ImageCanvas({
   );
 }
 
-export default function ImagePreview({ imageId }: { imageId: string }) {
+export default function ImagePreview({ image }: { image: PicsumImage }) {
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const [{ width, height }] = useQueryImageSize();
-  const [image, setImage] = useState<PicsumImage>();
 
   const canvasScale = useViewScale(canvasWrapperRef, [width, height]);
-
-  useEffect(() => {
-    loadPicsumImage(imageId).then(setImage);
-  }, [imageId]);
 
   return (
     <div ref={canvasWrapperRef} className='relative'>

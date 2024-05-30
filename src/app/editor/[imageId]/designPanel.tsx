@@ -86,16 +86,8 @@ function DonwloadButton() {
   );
 }
 
-export function DesignPanel({ imageId }: { imageId: string }) {
+export function DesignPanel({ image }: { image: PicsumImage }) {
   const [{ width, height }, setSize] = useQueryImageSize(false);
-  const [image, setImage] = useState<PicsumImage>();
-
-  useEffect(() => {
-    if (!imageId) return;
-    loadPicsumImage(imageId).then((image) => {
-      setImage(image);
-    });
-  }, [imageId]);
 
   useEffect(() => {
     if (!image) return;
