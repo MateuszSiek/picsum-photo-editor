@@ -72,7 +72,11 @@ function ImageCanvas({
     if (canvasImage && image && ctx) {
       ctx.clearRect(0, 0, width, height);
 
-      ctx.filter = `${grayscale ? 'grayscale(100%)' : ''} ${blur ? `blur(${blur}px)` : ''}`;
+      let filter = 'none';
+      if (grayscale || blur) {
+        filter = `${grayscale ? 'grayscale(100%)' : ''} ${blur ? `blur(${blur}px)` : ''}`;
+      }
+      ctx.filter = filter;
       const { drawWidth, drawHeight, offsetX, offsetY } =
         calculateDrawParameters(width, height, image.width, image.height);
       ctx.drawImage(canvasImage, offsetX, offsetY, drawWidth, drawHeight);
