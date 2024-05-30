@@ -13,3 +13,8 @@ export interface ImageEditProps {
   blur: number;
   grayscale: boolean;
 }
+
+export interface Pagination {
+  page?: number;
+  limit?: number;
+}

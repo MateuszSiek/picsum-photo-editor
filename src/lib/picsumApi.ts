@@ -1,9 +1,4 @@
-import { PicsumImage } from './types';
-
-interface Pagination {
-  page?: number;
-  limit?: number;
-}
+import { PicsumImage, Pagination } from './types';
 
 export function getScaledPicsumImageURL(
   id: string,

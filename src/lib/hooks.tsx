@@ -9,6 +9,14 @@ import {
 import { useEffect, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
 
+const DEFAULTS = {
+  width: 100,
+  height: 100,
+  grayscale: false,
+  blur: 0,
+  page: 1,
+};
+
 // Custom hook to calculate the optimal scale for the view based on the content size
 export function useViewScale(
   wrapperRef: React.RefObject<HTMLDivElement>,
@@ -37,7 +45,9 @@ const DEFAULT_NUQS_OPTIONS: Options = { history: 'push', throttleMs: 1000 };
 export function useQueryGrayScale(): QueryReturnType<boolean> {
   return useQueryState(
     'grayscale',
-    parseAsBoolean.withDefault(false).withOptions(DEFAULT_NUQS_OPTIONS)
+    parseAsBoolean
+      .withDefault(DEFAULTS.grayscale)
+      .withOptions(DEFAULT_NUQS_OPTIONS)
   );
 }
 
@@ -46,7 +56,7 @@ export function useQueryBlur(): QueryReturnType<number> {
   return useQueryState(
     'blur',
     parseAsNumberLiteral(blurValues)
-      .withDefault(0)
+      .withDefault(DEFAULTS.blur)
       .withOptions(DEFAULT_NUQS_OPTIONS)
   );
 }
@@ -62,12 +72,13 @@ export function useQueryImageSize(withDefault: boolean = true) {
   if (withDefault) {
     return useQueryStates(
       {
-        width: parseAsInteger.withDefault(100),
-        height: parseAsInteger.withDefault(100),
+        width: parseAsInteger.withDefault(DEFAULTS.width),
+        height: parseAsInteger.withDefault(DEFAULTS.height),
       },
       DEFAULT_NUQS_OPTIONS
     ) as QueryReturnType<{ width: number; height: number }>;
   }
+
   return useQueryStates(
     {
       width: parseAsInteger,
@@ -80,6 +91,6 @@ export function useQueryImageSize(withDefault: boolean = true) {
 export function useQueryPage(): QueryReturnType<number> {
   return useQueryState(
     'page',
-    parseAsInteger.withDefault(1).withOptions(DEFAULT_NUQS_OPTIONS)
+    parseAsInteger.withDefault(DEFAULTS.page).withOptions(DEFAULT_NUQS_OPTIONS)
   );
 }
