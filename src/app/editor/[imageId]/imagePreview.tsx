@@ -1,7 +1,11 @@
-import { useViewScale } from '@/lib/hooks';
+import {
+  useQueryBlur,
+  useQueryGrayScale,
+  useViewScale,
+  useQueryImageSize,
+} from '@/lib/hooks';
 import { loadPicsumImage } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
-import { parseAsBoolean, parseAsInteger, useQueryState } from 'nuqs';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { CanvasContext } from './context';
 import { LoadingSpinner } from '@/components/ui/spinner';
@@ -42,8 +46,8 @@ function ImageCanvas({
 }) {
   const { canvasRef, setCanvasReady } = useContext(CanvasContext);
   const [canvasImage, setCanvasImage] = useState<HTMLImageElement | null>(null);
-  const [grayscale] = useQueryState('grayscale', parseAsBoolean);
-  const [blur] = useQueryState('blur', parseAsInteger);
+  const [grayscale] = useQueryGrayScale();
+  const [blur] = useQueryBlur();
 
   useEffect(() => {
     // https://issues.chromium.org/issues/328755781
@@ -103,8 +107,7 @@ function ImageCanvas({
 
 export default function ImagePreview({ imageId }: { imageId: string }) {
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
-  const [width] = useQueryState('width', parseAsInteger.withDefault(100));
-  const [height] = useQueryState('height', parseAsInteger.withDefault(100));
+  const [{ width, height }] = useQueryImageSize();
   const [image, setImage] = useState<PicsumImage>();
 
   const canvasScale = useViewScale(canvasWrapperRef, [width, height]);

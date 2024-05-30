@@ -7,25 +7,22 @@ import { Button } from '@/components/ui/button';
 import { loadPicsumImage } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
 import { DownloadIcon } from '@radix-ui/react-icons';
-import { parseAsBoolean, parseAsInteger, useQueryState } from 'nuqs';
 import { useContext, useEffect, useState } from 'react';
 import { CanvasContext } from './context';
+import {
+  useQueryBlur,
+  useQueryGrayScale,
+  useQueryImageSize,
+} from '@/lib/hooks';
 
 function ImageSize() {
-  const [width, setWidth] = useQueryState(
-    'width',
-    parseAsInteger.withDefault(1)
-  );
-  const [height, setHeight] = useQueryState(
-    'height',
-    parseAsInteger.withDefault(1)
-  );
+  const [{ width, height }, setSize] = useQueryImageSize();
 
   return (
     <div className='flex gap-2'>
       <LabeledInput
         className='flex-1'
-        onChange={(e) => setWidth(Number(e.target.value))}
+        onChange={(e) => setSize({ width: Number(e.target.value), height })}
         type='number'
         min={0}
         value={width}
@@ -33,7 +30,7 @@ function ImageSize() {
       />
       <LabeledInput
         className='flex-1'
-        onChange={(e) => setHeight(Number(e.target.value))}
+        onChange={(e) => setSize({ height: Number(e.target.value), width })}
         type='number'
         min={0}
         value={height}
@@ -44,7 +41,7 @@ function ImageSize() {
 }
 
 function ImageBlur() {
-  const [blur, setBlur] = useQueryState('blur', parseAsInteger.withDefault(0));
+  const [blur, setBlur] = useQueryBlur();
   return (
     <LabeledSlider
       max={10}
@@ -58,10 +55,7 @@ function ImageBlur() {
 }
 
 function ImageGrayscale() {
-  const [grayscale, setGrayscale] = useQueryState(
-    'grayscale',
-    parseAsBoolean.withDefault(false)
-  );
+  const [grayscale, setGrayscale] = useQueryGrayScale();
 
   return (
     <LabeledSwitch
@@ -93,8 +87,7 @@ function DonwloadButton() {
 }
 
 export function DesignPanel({ imageId }: { imageId: string }) {
-  const [width, setWidth] = useQueryState('width', parseAsInteger);
-  const [height, setHeight] = useQueryState('height', parseAsInteger);
+  const [{ width, height }, setSize] = useQueryImageSize(false);
   const [image, setImage] = useState<PicsumImage>();
 
   useEffect(() => {
@@ -106,8 +99,11 @@ export function DesignPanel({ imageId }: { imageId: string }) {
 
   useEffect(() => {
     if (!image) return;
-    if (!width) setWidth(image.width);
-    if (!height) setHeight(image.height);
+    if (!width || !height)
+      setSize(
+        { width: image.width, height: image.height },
+        { history: 'replace' }
+      );
   }, [image]);
 
   return (

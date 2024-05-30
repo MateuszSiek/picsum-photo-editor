@@ -2,16 +2,16 @@
 
 import { PicsumImageCard } from '@/components/picsumImageCard';
 import { DynamicPagination } from '@/components/ui/pagination';
+import { useQueryPage } from '@/lib/hooks';
 import { loadPicsumImages } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
 import { getPagination } from '@/lib/utils';
 import Link from 'next/link';
-import { parseAsInteger, useQueryState } from 'nuqs';
 import { useEffect, useMemo, useState } from 'react';
 
 export default function Home() {
   const [images, setImages] = useState<PicsumImage[]>([]);
-  const [page] = useQueryState('page', parseAsInteger.withDefault(1));
+  const [page] = useQueryPage();
   const maxPagesCount = 30;
   const paginationItems = useMemo(
     () => getPagination(page, maxPagesCount),
