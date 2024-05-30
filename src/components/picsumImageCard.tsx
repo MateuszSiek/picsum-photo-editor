@@ -2,6 +2,8 @@ import { PicsumImage } from '@/lib/types';
 import { Card } from './ui/card';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { getScaledPicsumImageURL } from '@/lib/picsumApi';
+import { AvatarIcon } from '@radix-ui/react-icons';
 
 function getScaledImageSize(
   image: PicsumImage,
@@ -28,7 +30,7 @@ export function PicsumImageCard({ image }: { image: PicsumImage }) {
   const { author } = image;
   // we dont need previews in full size so we query for the scaled image
   const { width, height } = getScaledImageSize(image);
-  const url = `https://picsum.photos/id/${image.id}/${width}/${height}`;
+  const url = getScaledPicsumImageURL(image.id, width, height);
   return (
     <Card className='group relative overflow-hidden'>
       <img
@@ -40,8 +42,11 @@ export function PicsumImageCard({ image }: { image: PicsumImage }) {
         )}
         onLoad={() => setHasLoaded(true)}
       />
-      <div className='absolute bottom-0 w-full bg-gradient-to-t from-black/80 via-black/10 via-70% to-black/10 to-transparent to-90% p-1 text-center text-sm text-white opacity-0 duration-500 ease-in group-hover:opacity-100'>
-        <p>{author}</p>
+      <div className='absolute bottom-0 w-full bg-gradient-to-t from-black/80 via-black/10 via-70% to-black/10 to-transparent to-90% pb-1 pt-8 text-center text-sm text-white opacity-0 duration-500 ease-in group-hover:opacity-100'>
+        <p className='inline-flex items-center justify-center gap-1'>
+          <AvatarIcon width={20} />
+          {author}
+        </p>
       </div>
     </Card>
   );
