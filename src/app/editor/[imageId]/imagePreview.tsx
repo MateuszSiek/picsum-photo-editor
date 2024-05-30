@@ -45,6 +45,19 @@ function ImageCanvas({
   const [blur] = useQueryState('blur', parseAsInteger);
 
   useEffect(() => {
+    // https://issues.chromium.org/issues/328755781
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') {
+        const context = canvasRef?.current?.getContext('2d');
+        if (context) {
+          context.fillStyle = 'transparent';
+          context.fillRect(0, 0, 1, 1);
+        }
+      }
+    });
+  }, [canvasRef]);
+
+  useEffect(() => {
     if (image) {
       const img = new Image();
       img.src = image.download_url;
