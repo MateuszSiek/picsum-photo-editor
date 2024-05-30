@@ -153,7 +153,7 @@ const DynamicPagination = ({
           switch (item.type) {
             case PaginationItemType.Page:
               return (
-                <PaginationItem key={index}>
+                <PaginationItem className='hidden sm:list-item' key={index}>
                   <PaginationLink
                     isActive={page === item.value}
                     href={`?page=${item.value}`}
@@ -163,7 +163,9 @@ const DynamicPagination = ({
                 </PaginationItem>
               );
             case PaginationItemType.Ellipsis:
-              return <PaginationEllipsis key={index} />;
+              return (
+                <PaginationEllipsis className='hidden sm:flex' key={index} />
+              );
           }
         })}
         <PaginationItem disabled={page + 1 > pagesCount}>

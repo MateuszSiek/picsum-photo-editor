@@ -24,13 +24,6 @@ export default function Home() {
 
   return (
     <div className='flex min-h-full flex-col gap-2'>
-      <DynamicPagination
-        pagesCount={maxPagesCount}
-        paginationItems={paginationItems}
-        page={page}
-        className='py-2'
-      />
-
       <div className='grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
         {images.map((image) => (
           <Link key={image.id} href={`/editor/${image.id}`}>
@@ -43,7 +36,7 @@ export default function Home() {
         pagesCount={maxPagesCount}
         paginationItems={paginationItems}
         page={page}
-        className='py-2'
+        className='sticky bottom-2 w-fit rounded-full bg-white p-2'
       />
     </div>
   );
