@@ -4,10 +4,9 @@ import {
   LabeledSwitch,
 } from '@/components/labeledInput';
 import { Button } from '@/components/ui/button';
-import { loadPicsumImage } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
 import { DownloadIcon } from '@radix-ui/react-icons';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { CanvasContext } from './context';
 import {
   useQueryBlur,

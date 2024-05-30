@@ -4,7 +4,6 @@ import {
   useViewScale,
   useQueryImageSize,
 } from '@/lib/hooks';
-import { loadPicsumImage } from '@/lib/picsumApi';
 import { PicsumImage } from '@/lib/types';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { CanvasContext } from './context';

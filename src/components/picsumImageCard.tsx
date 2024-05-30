@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { getScaledPicsumImageURL } from '@/lib/picsumApi';
 import { AvatarIcon } from '@radix-ui/react-icons';
+import { Button } from './ui/button';
 
 function getScaledImageSize(
   image: PicsumImage,
@@ -42,11 +43,16 @@ export function PicsumImageCard({ image }: { image: PicsumImage }) {
         )}
         onLoad={() => setHasLoaded(true)}
       />
-      <div className='absolute bottom-0 w-full bg-gradient-to-t from-black/80 via-black/10 via-70% to-black/10 to-transparent to-90% pb-1 pt-8 text-center text-sm text-white opacity-0 duration-500 ease-in group-hover:opacity-100'>
-        <p className='inline-flex items-center justify-center gap-1'>
-          <AvatarIcon width={20} />
-          {author}
-        </p>
+      <div className='text-sm text-white opacity-0 transition-opacity duration-700 ease-in group-hover:opacity-100'>
+        <span className='absolute left-1/2 top-1 -translate-x-1/2 drop-shadow-md'>
+          Click to edit
+        </span>
+        <div className='absolute bottom-0 w-full bg-gradient-to-t from-black/80 via-black/10 via-70% to-black/10 to-transparent to-90% pb-1 pt-8 text-center'>
+          <p className='inline-flex items-center justify-center gap-1'>
+            <AvatarIcon width={20} />
+            {author}
+          </p>
+        </div>
       </div>
     </Card>
   );
