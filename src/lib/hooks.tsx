@@ -89,8 +89,11 @@ export function useQueryImageSize(withDefault: boolean = true) {
 }
 
 export function useQueryPage(): QueryReturnType<number> {
+  const pageValues = Array.from({ length: 31 }, (_, i) => i);
   return useQueryState(
     'page',
-    parseAsInteger.withDefault(DEFAULTS.page).withOptions(DEFAULT_NUQS_OPTIONS)
+    parseAsNumberLiteral(pageValues)
+      .withDefault(DEFAULTS.page)
+      .withOptions(DEFAULT_NUQS_OPTIONS)
   );
 }
