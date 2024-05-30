@@ -2,7 +2,7 @@
 
 Easilly edit images from [picsum.photos](https://picsum.photos/)
 
-![Demo](/docs/demo.mp4)
+https://github.com/MateuszSiek/picsum-photo-editor/assets/16710005/63c03b7c-5c69-4f05-999f-7196a18a923b
 
 ## Demo link:
 
