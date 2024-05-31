@@ -9,8 +9,29 @@ import { Pencil2Icon } from '@radix-ui/react-icons';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: 'PicsumEditor',
+  title: 'PicsumEditor- simple photo editor',
   description: 'A simple image editor using picsum.photos',
+  openGraph: {
+    title: 'PicsumEditor- simple photo editor',
+    description: 'A simple image editor using picsum.photos',
+    url: 'https://picsumeditor.msiek.com/',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: 'https://picsumeditor.msiek.com/social-preview.jpg',
+        alt: 'PicsumEditor',
+      },
+    ],
+  },
+  twitter: {
+    images: [
+      {
+        url: 'https://picsumeditor.msiek.com/social-preview.jpg',
+        alt: 'PicsumEditor',
+      },
+    ],
+  },
 };
 
 const Header = () => {
