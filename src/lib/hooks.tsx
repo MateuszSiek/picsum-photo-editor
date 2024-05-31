@@ -61,31 +61,24 @@ export function useQueryBlur(): QueryReturnType<number> {
   );
 }
 
-export function useQueryImageSize(
-  withDefault?: true
-): QueryReturnType<{ width: number; height: number }>;
-export function useQueryImageSize(
-  withDefault?: false
-): QueryReturnType<{ width: number | null; height: number | null }>;
+export function useQueryImageSize() {
+  return useQueryStates(
+    {
+      width: parseAsInteger.withDefault(DEFAULTS.width),
+      height: parseAsInteger.withDefault(DEFAULTS.height),
+    },
+    DEFAULT_NUQS_OPTIONS
+  );
+}
 
-export function useQueryImageSize(withDefault: boolean = true) {
-  if (withDefault) {
-    return useQueryStates(
-      {
-        width: parseAsInteger.withDefault(DEFAULTS.width),
-        height: parseAsInteger.withDefault(DEFAULTS.height),
-      },
-      DEFAULT_NUQS_OPTIONS
-    ) as QueryReturnType<{ width: number; height: number }>;
-  }
-
+export function useQueryImageSizeNoDefault() {
   return useQueryStates(
     {
       width: parseAsInteger,
       height: parseAsInteger,
     },
     DEFAULT_NUQS_OPTIONS
-  ) as QueryReturnType<{ width: number | null; height: number | null }>;
+  );
 }
 
 export function useQueryPage(): QueryReturnType<number> {

@@ -86,7 +86,16 @@ function ImageCanvas({
       ctx.drawImage(canvasImage, offsetX, offsetY, drawWidth, drawHeight);
       setCanvasReady(true);
     }
-  }, [canvasImage, image, width, height, blur, grayscale]);
+  }, [
+    canvasImage,
+    image,
+    width,
+    height,
+    blur,
+    grayscale,
+    canvasRef,
+    setCanvasReady,
+  ]);
 
   return (
     <>

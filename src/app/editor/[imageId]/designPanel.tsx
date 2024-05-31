@@ -12,6 +12,7 @@ import {
   useQueryBlur,
   useQueryGrayScale,
   useQueryImageSize,
+  useQueryImageSizeNoDefault,
 } from '@/lib/hooks';
 
 function ImageSize() {
@@ -86,7 +87,7 @@ function DonwloadButton() {
 }
 
 export function DesignPanel({ image }: { image?: PicsumImage }) {
-  const [{ width, height }, setSize] = useQueryImageSize(false);
+  const [{ width, height }, setSize] = useQueryImageSizeNoDefault();
 
   useEffect(() => {
     if (!image) return;
@@ -95,7 +96,7 @@ export function DesignPanel({ image }: { image?: PicsumImage }) {
         { width: image.width, height: image.height },
         { history: 'replace' }
       );
-  }, [image]);
+  }, [image, height, width, setSize]);
 
   return (
     <div className='flex flex-col'>

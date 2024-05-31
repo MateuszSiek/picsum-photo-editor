@@ -13,6 +13,7 @@ export default function Editor({ params }: { params: { imageId: string } }) {
   const [image, setImage] = useState<PicsumImage>();
   const router = useRouter();
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadPicsumImage(imageId)
       .then(setImage)

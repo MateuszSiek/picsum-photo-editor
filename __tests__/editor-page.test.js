@@ -1,10 +1,9 @@
 import '@testing-library/jest-dom';
 import 'jest-canvas-mock';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { act } from 'react';
 import Editor from '../src/app/editor/[imageId]/page';
 import { calculateDrawParameters } from '../src/app/editor/[imageId]/imagePreview';
-import { useRouter } from 'next/navigation';
 
 const mockImage = [
   {
@@ -19,8 +18,10 @@ const mockImage = [
 
 jest.mock('../src/lib/hooks', () => ({
   useQueryImageSize: () => [{ width: 400, height: 300 }, jest.fn()],
+  useQueryImageSizeNoDefault: () => [{ width: 400, height: 300 }, jest.fn()],
   useQueryBlur: () => [4, jest.fn()],
   useQueryGrayScale: () => [true, jest.fn()],
+  useViewScale: jest.fn((x) => 10),
   useViewScale: jest.fn((x) => 10),
 }));
 
