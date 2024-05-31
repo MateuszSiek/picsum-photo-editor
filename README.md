@@ -171,6 +171,7 @@ picsum-photo-editor/
 │   │   │   ├── context.tsx      # canvas context
 │   │   │   ├── designPanel.tsx  # edit panel component
 │   │   │   └── imagePreview.tsx # canvas image preview component
+│   │   ├── not-found.tsx        # 404 page
 │   │   ├── layout.tsx           # main app layout wrapper
 │   │   └── page.tsx             # home page with images
 │   │
