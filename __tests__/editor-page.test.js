@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { act } from 'react';
 import Editor from '../src/app/editor/[imageId]/page';
 import { calculateDrawParameters } from '../src/app/editor/[imageId]/imagePreview';
+import { useRouter } from 'next/navigation';
 
 const mockImage = [
   {
@@ -33,6 +34,10 @@ jest.mock('../src/lib/picsumApi', () => ({
   loadPicsumImage: () => new Promise((resolve) => resolve(mockImage)),
   getScaledPicsumImageURL: (id, width, height) =>
     `mock-scaled.url/${id}/${width}/${height}`,
+}));
+
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
 }));
 
 describe('Page', () => {

@@ -32,6 +32,10 @@ jest.mock('../src/lib/picsumApi', () => ({
     `mock-scaled.url/${id}/${width}/${height}`,
 }));
 
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
+
 
 describe('Page', () => {
   it('Render images', async () => {
