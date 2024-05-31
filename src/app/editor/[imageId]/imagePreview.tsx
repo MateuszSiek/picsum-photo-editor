@@ -9,6 +9,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { CanvasContext } from './context';
 import { LoadingSpinner } from '@/components/ui/spinner';
 
+// calculating the draw parameters for the image including the cropping
 export function calculateDrawParameters(
   canvasWidth: number,
   canvasHeight: number,
@@ -49,6 +50,7 @@ function ImageCanvas({
   const [blur] = useQueryBlur();
 
   useEffect(() => {
+    // remporary fix for a chromium bug
     // https://issues.chromium.org/issues/328755781
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') {
@@ -63,6 +65,7 @@ function ImageCanvas({
 
   useEffect(() => {
     if (image) {
+      // Load the image and set it to the state so it can be drawn on the canvas
       const img = new Image();
       img.src = image.download_url;
       img.onload = () => setCanvasImage(img);
@@ -84,7 +87,7 @@ function ImageCanvas({
       const { drawWidth, drawHeight, offsetX, offsetY } =
         calculateDrawParameters(width, height, image.width, image.height);
       ctx.drawImage(canvasImage, offsetX, offsetY, drawWidth, drawHeight);
-      setCanvasReady(true);
+      setCanvasReady(true); // this should enable the download button
     }
   }, [
     canvasImage,

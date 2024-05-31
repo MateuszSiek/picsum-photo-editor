@@ -1,5 +1,8 @@
 import { RefObject, createContext, useRef, useState } from 'react';
 
+// We store the canvas reference and a flag to indicate when the canvas is ready
+// this way it could be used by the imagePreview for rendering and designPanel for download or loading state
+
 export interface CanvasContextProps {
   canvasRef?: RefObject<HTMLCanvasElement>;
   canvasReady: boolean;

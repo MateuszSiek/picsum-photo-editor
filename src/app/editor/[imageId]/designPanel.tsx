@@ -91,10 +91,12 @@ export function DesignPanel({ image }: { image?: PicsumImage }) {
 
   useEffect(() => {
     if (!image) return;
+    // we initialise the query params with the image size
+    // so the correct values could be propagated to the canvas and edit UI
     if (!width || !height)
       setSize(
         { width: image.width, height: image.height },
-        { history: 'replace' }
+        { history: 'replace' } // replace to overwrite the default values
       );
   }, [image, height, width, setSize]);
 

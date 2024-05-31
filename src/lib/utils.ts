@@ -9,6 +9,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Function which calculate pagination items based on current page and total pages
+// The function assures that pagination component always have the same amount of buttons
 export function getPagination(
   currentPage: number,
   totalPages: number

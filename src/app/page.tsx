@@ -46,6 +46,7 @@ export default function Home() {
     loadPicsumImages({ page })
       .then((data) => setImages(data))
       .catch((e) => {
+        // simple error handling by redirecting to 404 page
         router.replace('/404');
       });
   }, [page]);
